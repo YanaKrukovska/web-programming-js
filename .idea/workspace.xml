@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="4017b9e7-209d-446b-aac8-551b6b27a76e" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="HTML File" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectId" id="1my47hdO7LtOdZM27rljX3ZdML3" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="javascript.nodejs.core.library.configured.version" value="14.15.0" />
+    <property name="javascript.nodejs.core.library.typings.version" value="14.14.20" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/ua.edu.distedu.ykrukovska/first-practice" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="nodejs_interpreter_path" value="node" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="vue.rearranger.settings.migration" value="true" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\WebstormProjects\web-programming-js\ua.edu.distedu.ykrukovska\first-practice" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\WebstormProjects\web-programming-js\ua.edu.distedu.ykrukovska\first-practice" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Node.js.server.js">
+    <configuration name="anagram-finder.js" type="NodeJSConfigurationType" temporary="true" nameIsGenerated="true" path-to-js-file="$PROJECT_DIR$/ua.edu.distedu.ykrukovska/anagrams/anagram-finder.js" working-dir="$PROJECT_DIR$/ua.edu.distedu.ykrukovska/anagrams">
+      <method v="2" />
+    </configuration>
+    <configuration name="another-server.js" type="NodeJSConfigurationType" temporary="true" nameIsGenerated="true" path-to-js-file="$PROJECT_DIR$/ua.edu.distedu.ykrukovska/first-practice/another-server.js" working-dir="$PROJECT_DIR$/ua.edu.distedu.ykrukovska/first-practice">
+      <method v="2" />
+    </configuration>
+    <configuration name="server.js" type="NodeJSConfigurationType" temporary="true" nameIsGenerated="true" path-to-js-file="$PROJECT_DIR$/ua.edu.distedu.ykrukovska/first-practice/server.js" working-dir="$PROJECT_DIR$/ua.edu.distedu.ykrukovska">
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Node.js.server.js" />
+        <item itemvalue="Node.js.another-server.js" />
+        <item itemvalue="Node.js.anagram-finder.js" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="4017b9e7-209d-446b-aac8-551b6b27a76e" name="Default Changelist" comment="" />
+      <created>1610452331068</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1610452331068</updated>
+      <workItem from="1610452332133" duration="3597000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state width="1515" height="210" key="GridCell.Tab.0.bottom" timestamp="1610455945077">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1515" height="210" key="GridCell.Tab.0.bottom/0.0.1536.824/-1920.-89.1920.1040@0.0.1536.824" timestamp="1610455945077" />
+    <state width="1515" height="210" key="GridCell.Tab.0.center" timestamp="1610455945077">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1515" height="210" key="GridCell.Tab.0.center/0.0.1536.824/-1920.-89.1920.1040@0.0.1536.824" timestamp="1610455945077" />
+    <state width="1515" height="210" key="GridCell.Tab.0.left" timestamp="1610455945077">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1515" height="210" key="GridCell.Tab.0.left/0.0.1536.824/-1920.-89.1920.1040@0.0.1536.824" timestamp="1610455945077" />
+    <state width="1515" height="210" key="GridCell.Tab.0.right" timestamp="1610455945077">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1515" height="210" key="GridCell.Tab.0.right/0.0.1536.824/-1920.-89.1920.1040@0.0.1536.824" timestamp="1610455945077" />
+    <state x="425" y="187" key="run.anything.popup" timestamp="1610455966211">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="425" y="187" key="run.anything.popup/0.0.1536.824/-1920.-89.1920.1040@0.0.1536.824" timestamp="1610455966211" />
+  </component>
+</project>
