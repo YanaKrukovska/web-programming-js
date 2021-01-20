@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>CSV Task</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="../csv.css" rel="stylesheet"/>
+</head>
+<body>
+<div class="sorting">
+    <a href="/">Read Order</a>
+    <a href="/sort-ascending">Ascending Order</a>
+    <a href="/sort-descending">Descending Order</a>
+</div>
+<div>
+    <table class="table" id="gradesTable">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">First Mark</th>
+            <th scope="col">Second Mark</th>
+            <th scope="col">Third Mark</th>
+            <th scope="col">Average</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        <%
+        for (var i = 0; i < studentGrades.length; i++) { %>
+            <tr>
+                <td><%= studentGrades[i].id %></td>
+                <td><%= studentGrades[i].first %></td>
+                <td><%= studentGrades[i].second %></td>
+                <td><%= studentGrades[i].third %></td>
+                <td><%= studentGrades[i].average%></td>
+            </tr>
+        <% } %>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

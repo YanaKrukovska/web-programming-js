@@ -23,7 +23,7 @@ function writeAnagrams(anagrams) {
 
 function findAnagrams(fileName) {
     let words = readFile(__dirname + fileName);
-    let anagrams = {}
+    let anagrams = [];
 
     for (let word of words) {
         let sortedWord = sortLetters(word);
@@ -31,7 +31,7 @@ function findAnagrams(fileName) {
         anagrams[sortedWord].push(word)
     }
 
-    writeAnagrams(anagrams);
+    return anagrams;
 }
 
-findAnagrams("/anagrams.txt");
+writeAnagrams(findAnagrams("/anagrams.txt"));
