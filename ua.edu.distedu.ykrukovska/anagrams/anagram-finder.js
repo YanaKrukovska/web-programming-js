@@ -12,11 +12,7 @@ function writeAnagrams(anagrams) {
     for (let key in anagrams) {
         if (anagrams.hasOwnProperty(key) && anagrams[key].length > 1) {
             let values = anagrams[key];
-            let res = "";
-            for (let i = 0; i < values.length; i++) {
-                res += i === values.length - 1 ? values[i] : values[i] + " - ";
-            }
-            console.log(res);
+            console.log(values.join(' - '));
         }
     }
 }
