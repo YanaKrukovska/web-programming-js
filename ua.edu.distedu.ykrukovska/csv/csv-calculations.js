@@ -1,14 +1,14 @@
 module.exports = {
     sortInitialOrder: function (array) {
-        return array.sort((a, b) => parseFloat(a.id) - parseFloat(b.id));
+        return array.sort((a, b) => a.id - b.id);
     },
 
     sortAscending: function (array) {
-        return array.sort((a, b) => parseFloat(a.average) - parseFloat(b.average));
+        return array.sort((a, b) => a.average - b.average);
     },
 
     sortDescending: function (array) {
-        return array.sort((a, b) => parseFloat(b.average) - parseFloat(a.average));
+        return array.sort((a, b) => b.average - a.average);
     },
 
     calculateAverage: function (grades) {
