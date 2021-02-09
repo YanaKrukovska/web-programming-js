@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Spammer Helper</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="../spammer.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div>
+    <table class="table" id="userDataTable">
+        <thead>
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Surname</th>
+            <th scope="col">Name</th>
+            <th scope="col">Patronymic</th>
+            <th scope="col">Mail</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        <%
+        for (var i = 0; i < userData.length; i++) { %>
+            <tr>
+                <td><%= userData[i].id %></td>
+                <td><%= userData[i].surname %></td>
+                <td><%= userData[i].name %></td>
+                <td><%= userData[i].patronymic %></td>
+                <td><%= userData[i].mail %></td>
+                <td>
+                    <form action="/edit-user" method="post">
+                        <label for="idToEdit" hidden></label>
+                        <input type="number" class="form-control"
+                               name="idToEdit" id="idToEdit" value="<%= userData[i].id %>" hidden>
+                        <button class="btn btn-primary" type="submit" value="Go to Google">Edit</button>
+                    </form>
+                </td>
+                <td>
+                    <form action="/delete-user" method="post">
+                        <label for="currentId" hidden></label>
+                        <input type="number" class="form-control"
+                               name="currentId" id="currentId" value="<%= userData[i].id %>" hidden>
+                        <button class="btn btn-primary alert-danger" type="submit">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        <% } %>
+        </tbody>
+    </table>
+    <div class="buttons">
+        <form action="/add-user" style="float: left">
+            <button class="btn btn-primary " id="addUserButton" type="submit">Add new user</button>
+        </form>
+        <form action="/prepare-mail" style="float: right;">
+            <button class="btn btn-primary alert-success" id="sendMail" type="submit">Send mail</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>

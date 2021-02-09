@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Send Mail</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="../spammer.css" rel="stylesheet" type="text/css"/>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
+    <script>
+        function choseOther() {
+            $("input[type='radio']").on('change', function () {
+                if ($(this).val() === "Other") {
+                    $('input[id="customMessage"]').show();
+                    $('label[id="textAreaLabel"]').show();
+                } else {
+                    $('input[id="customMessage"]').hide();
+                    $('label[id="textAreaLabel"]').hide();
+                }
+            });
+        }
+
+        var inputs = document.querySelectorAll('.messageChooser');
+        for (var i = 0; i < inputs.length; i++) {
+            if (inputs[i].checked)
+                inputs[i].checked = true;
+        }
+    </script>
+</head>
+<body>
+<div class="mail-form">
+    <form action="/send-mail" method="post" onclick="choseOther()">
+
+        <h4>Choose receivers of the mail: </h4><br>
+        <%
+        for (var i = 0; i < mails.length; i++) {
+            let mail = mails[i].mail;
+        %>
+        <input type="checkbox" class="mailOptions" id="<%= mail %>" name="mailReceiver" value="<%= mail %>">
+        <label for="<%= mail %>"><%= mails[i].name + ' ' + mails[i].surname + ' - ' + mail %> </label>
+        <br>
+        <% } %>
+        <br>
+        <br>
+
+        <h4>Choose message: </h4><br>
+        <label for="message1">You were my brother Anakin!</label>
+        <input type="radio" id="message1" name="message" value="You were my brother Anakin!">
+        <br>
+        <label for="message2">Hello there!</label>
+        <input type="radio" id="message2" name="message" value="Hello there!">
+        <br>
+        <label for="message3">It's a trap!</label>
+        <input type="radio" id="message3" name="message" value="It's a trap!">
+        <br>
+        <label for="other">Other</label>
+        <input type="radio" id="other" name="message" value="Other">
+        <br>
+        <label id="textAreaLabel" for="customMessage" style="display: none">Your Own Message</label>
+        <br>
+        <input type="text" id="customMessage" name="message" style="display: none"> </input>
+        <br><br>
+        <button type="submit" class="btn btn-primary">Send!</button>
+    </form>
+
+</div>
+</body>
+</html>

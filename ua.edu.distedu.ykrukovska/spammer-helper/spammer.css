@@ -1,0 +1,30 @@
+.table {
+    margin-left: 10%;
+    margin-right: 10%;
+    margin-top: 100px;
+    width: 80%;
+}
+
+.user-edit {
+    margin-left: 25%;
+    margin-right: 25%;
+    margin-top: 100px;
+    width: 50%;
+}
+
+.buttons {
+    display: inline-block;
+    margin-left: 10%;
+}
+
+.buttons > form {
+    margin-right: 5px;
+    margin-top: 5px;
+}
+
+.mail-form {
+    margin-left: 25%;
+    margin-right: 25%;
+    margin-top: 100px;
+    width: 50%;
+}

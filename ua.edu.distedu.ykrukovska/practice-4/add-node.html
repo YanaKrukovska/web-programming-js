@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Node</title>
+    <script>
+        function addElement() {
+            let newP = document.createElement('p');
+            newP.innerHTML = 'Four';
+            let firstDiv = document.getElementsByTagName('div')[0];
+            firstDiv.appendChild(newP);
+        }
+    </script>
+</head>
+<body>
+<div>
+    <p>One</p>
+    <p>Two</p>
+    <p>Three</p>
+</div>
+<hr/>
+<div>
+    <p>Eleven</p>
+    <p>Twelve</p>
+</div>
+<button onclick="addElement()">Add</button>
+</body>
+</html>
