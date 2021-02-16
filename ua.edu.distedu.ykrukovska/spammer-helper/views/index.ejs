@@ -11,7 +11,6 @@
     <table class="table" id="userDataTable">
         <thead>
         <tr>
-            <th scope="col">Id</th>
             <th scope="col">Surname</th>
             <th scope="col">Name</th>
             <th scope="col">Patronymic</th>
@@ -19,29 +18,29 @@
         </tr>
         </thead>
         <tbody>
-
         <%
         for (var i = 0; i < userData.length; i++) { %>
             <tr>
-                <td><%= userData[i].id %></td>
                 <td><%= userData[i].surname %></td>
                 <td><%= userData[i].name %></td>
                 <td><%= userData[i].patronymic %></td>
                 <td><%= userData[i].mail %></td>
                 <td>
                     <form action="/edit-user" method="post">
-                        <label for="idToEdit" hidden></label>
-                        <input type="number" class="form-control"
-                               name="idToEdit" id="idToEdit" value="<%= userData[i].id %>" hidden>
-                        <button class="btn btn-primary" type="submit" value="Go to Google">Edit</button>
+                        <label for="editId" hidden></label>
+                        <input type="text" class="form-control" name="editId" id="editId" value="<%= userData[i]._id %>"
+                               hidden>
+                        <button class="btn btn-primary" type="submit">Edit</button>
                     </form>
                 </td>
                 <td>
-                    <form action="/delete-user" method="post">
+                    <form action="/delete-user" id="delete-form" method="post">
                         <label for="currentId" hidden></label>
-                        <input type="number" class="form-control"
-                               name="currentId" id="currentId" value="<%= userData[i].id %>" hidden>
-                        <button class="btn btn-primary alert-danger" type="submit">Delete</button>
+                        <input type="text" class="form-control" name="currentId" id="currentId"
+                               value="<%= userData[i]._id %>" hidden>
+                        <button class="btn btn-primary alert-danger" type="submit"
+                                onclick="return confirm('Are you sure?')">Delete
+                        </button>
                     </form>
                 </td>
             </tr>

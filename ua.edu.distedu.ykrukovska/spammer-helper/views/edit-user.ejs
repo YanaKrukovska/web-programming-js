@@ -9,9 +9,6 @@
 <body>
 <div class="user-edit">
     <form action="/update-user" method="post">
-        <label for="idToUpdate" hidden></label>
-        <input type="number" class="form-control"
-               name="idToUpdate" id="idToUpdate" value="<%= user.id %>" hidden>
         <div class="form-group">
             <label for="userSurname">Surname</label>
             <input type="text" class="form-control" name="userSurname" id="userSurname" value="<%= user.surname %>">
@@ -29,8 +26,20 @@
             <label for="userEmail">Email address</label>
             <input type="email" class="form-control" name="userEmail" id="userEmail" value="<%= user.mail %>">
         </div>
+        <label for="idToUpdate" hidden></label>
+        <input type="text" class="form-control" name="idToUpdate" id="idToUpdate" value="<%= user._id %>" hidden>
+
         <button type="submit" class="btn btn-primary">Save</button>
+        <a href="/">
+            <button class="btn btn-primary alert-danger" type="button">Cancel</button>
+        </a>
     </form>
+    <% if (error !== '') { %>
+        <div id="error-message" class="alert alert-danger alert-dismissible fade show"
+             style="margin-top: 50px; ">
+            <p><%= error %></p>
+        </div>
+    <% } %>
 </div>
 </body>
 </html>

@@ -6,82 +6,108 @@ let nodemailer = require('nodemailer');
 let bodyParser = require('body-parser');
 server.use(bodyParser.urlencoded({extended: true}));
 server.use(bodyParser.json());
-
 server.set('view engine', 'ejs');
 server.use(express.static(__dirname));
 
-let data = [
-    {
-        id: 0,
-        name: "Anakin",
-        surname: "Skywalker",
-        patronymic: "Palpatinovich",
-        mail: ""
-    },
-    {
-        id: 1,
-        name: "Luke",
-        surname: "Skywalker",
-        patronymic: "Anakinovich",
-        mail: ""
-    },
-    {
-        id: 2,
-        name: "Ben",
-        surname: "Solo",
-        patronymic: "Hanovich",
-        mail: ""
-    },
-];
+const mongo = require("mongodb");
+const MongoClient = mongo.MongoClient;
 
-server.get('/', function (req, res) {
-    res.render('spammer', {userData: data});
+const url = "mongodb://localhost:27017/";
+const mongoClient = new MongoClient(url, {useUnifiedTopology: true});
+let db;
+let collection;
+mongoClient.connect(function (err, client) {
+    db = client.db("SpammerDB");
+    collection = db.collection("mail");
 });
 
-server.post('/edit-user', function (req, res) {
-    res.render('edit-user', {user: data[req.body.idToEdit]});
+function getAllUsersData(callback) {
+    collection.find({}).toArray(function (err, result) {
+        callback(result);
+    });
+}
+
+server.get('/', function (req, res) {
+    getAllUsersData(function (allUserData) {
+        res.render('index', {userData: allUserData});
+    });
 });
 
 server.get('/add-user', function (req, res) {
-    res.render('add-user');
+    res.render('add-user', {error: ''});
+});
+
+server.post('/edit-user', function (req, res) {
+    collection.findOne({_id: new mongo.ObjectID(req.body.editId)}, function (err, result) {
+        res.render('edit-user', {user: result, error: ''});
+    });
 });
 
 server.post('/update-user', function (req, res) {
-    let id = req.body.idToUpdate;
-    data[id].surname = req.body.userSurname;
-    data[id].name = req.body.userName;
-    data[id].patronymic = req.body.userPatronymic;
-    data[id].mail = req.body.userEmail;
-    res.redirect('/');
+    let newUser = {
+        name: req.body.userName,
+        surname: req.body.userSurname,
+        patronymic: req.body.userPatronymic,
+        mail: req.body.userEmail
+    };
+    let updatedValues = {
+        $set: newUser
+    };
+    collection.updateOne({_id: new mongo.ObjectID(req.body.idToUpdate)}, updatedValues, function (err) {
+        if (err && err.name === 'MongoError' && err.code === 11000) {
+            newUser._id = req.body.idToUpdate;
+            res.render('edit-user', {user: newUser, error: 'This email is already in use!'});
+        } else {
+            res.redirect('/');
+        }
+    });
 });
 
 server.post('/create-user', function (req, res) {
-    data.push({
-        id: data[data.length - 1].id + 1,
-        surname: req.body.userSurname,
+
+    let newUser = {
         name: req.body.userName,
+        surname: req.body.userSurname,
         patronymic: req.body.userPatronymic,
         mail: req.body.userEmail
+    };
+
+    collection.insertOne(newUser, function (err) {
+        if (err) {
+            if (err.name === 'MongoError' && err.code === 11000) {
+                res.render('add-user', {error: 'User with such mail already exists'});
+            } else {
+                res.render('add-user', {error: 'Something went wrong'});
+            }
+        } else {
+            res.redirect('/');
+        }
     });
-    res.redirect('/');
+
 });
 
 server.get('/prepare-mail', function (req, res) {
-    res.render('send-mail', {mails: data});
+    getAllUsersData(function (allUserData) {
+        res.render('send-mail', {mails: allUserData});
+    });
 });
 
 server.post('/delete-user', function (req, res) {
-    data.splice(data.findIndex(v => v.id === parseInt(req.body.currentId)), 1);
-
+    collection.deleteOne({_id: new mongo.ObjectID(req.body.currentId)});
     res.redirect('/');
 });
 
 server.post('/send-mail', function (req, res) {
 
-    let message = '';
+    let message;
     message = req.body.message[0] === 'Other' ? req.body.message[1] : req.body.message[0];
 
-    let receivers = req.body.mailReceiver.join(', ');
+    let receivers;
+    if (typeof req.body.mailReceiver.length == 'object') {
+        receivers = req.body.mailReceiver.join(', ');
+    } else {
+        receivers = req.body.mailReceiver;
+    }
 
     let mailOptions = {
         from: credentials.mail,
@@ -107,6 +133,7 @@ server.post('/send-mail', function (req, res) {
     });
     res.redirect('/');
 });
+
 
 server.listen(8888);
 console.log('Server is running on port 8888');

@@ -26,7 +26,17 @@
             <input type="email" class="form-control" name="userEmail" id="userEmail">
         </div>
         <button type="submit" class="btn btn-primary">Save</button>
+        <a href="/">
+            <button class="btn btn-primary alert-danger" type="button">Cancel</button>
+        </a>
     </form>
+
+    <% if (error !== '') { %>
+        <div id="error-message" class="alert alert-danger alert-dismissible fade show"
+             style="margin-top: 50px; ">
+            <p><%= error %></p>
+        </div>
+    <% } %>
 </div>
 </body>
 </html>

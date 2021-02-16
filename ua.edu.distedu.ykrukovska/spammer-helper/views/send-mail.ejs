@@ -18,18 +18,11 @@
                 }
             });
         }
-
-        var inputs = document.querySelectorAll('.messageChooser');
-        for (var i = 0; i < inputs.length; i++) {
-            if (inputs[i].checked)
-                inputs[i].checked = true;
-        }
     </script>
 </head>
 <body>
 <div class="mail-form">
     <form action="/send-mail" method="post" onclick="choseOther()">
-
         <h4>Choose receivers of the mail: </h4><br>
         <%
         for (var i = 0; i < mails.length; i++) {
@@ -60,8 +53,10 @@
         <input type="text" id="customMessage" name="message" style="display: none"> </input>
         <br><br>
         <button type="submit" class="btn btn-primary">Send!</button>
+        <a href="/">
+            <button class="btn btn-primary alert-danger" type="button">Cancel</button>
+        </a>
     </form>
-
 </div>
 </body>
 </html>
