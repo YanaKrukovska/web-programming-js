@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Fill & Update</title>
+    <link href="public/style/style.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+</head>
+<body>
+<div id="blog-entries">
+</div>
+<script>
+    const socketUrl = `ws://localhost:8889`;
+    const socket = new WebSocket(socketUrl);
+
+    socket.onopen = () => {
+        console.log('Socket connection opened');
+    };
+
+    socket.onclose = () => console.log('Socket connection closed');
+
+    socket.onmessage = () => {
+        getData();
+    };
+
+    let $blogEntries = $('#blog-entries');
+
+    function getData() {
+        $.ajax({
+            type: 'GET',
+            url: "/data",
+            cache: false,
+            success: function (response) {
+                $blogEntries.empty();
+                let parsedResponse = JSON.parse(response);
+                parsedResponse.forEach(function (entry) {
+
+                    let card = document.createElement("div");
+                    card.className = "card text-center";
+
+                    let cardBody = document.createElement("div");
+                    cardBody.className = "card-body";
+
+                    let cardTitle = document.createElement("h5");
+                    cardTitle.className = "card-title";
+                    cardTitle.innerText = entry.title;
+
+                    let cardText = document.createElement("p");
+                    cardText.innerText = entry.content;
+
+                    cardBody.appendChild(cardTitle);
+                    cardBody.appendChild(cardText);
+                    card.appendChild(cardBody);
+
+                    $blogEntries.append(card);
+
+                })
+            }
+        });
+    }
+
+    $(function () {
+        $(document).ready(function () {
+            getData();
+        });
+    });
+
+</script>
+</body>
+</html>
