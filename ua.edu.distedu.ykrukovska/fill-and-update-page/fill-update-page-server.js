@@ -35,7 +35,7 @@ app.get('/admin', function (req, res) {
 });
 
 app.get('/user', function (req, res) {
-    res.sendFile(__dirname + "/page.html");
+    res.sendFile(__dirname + "/user.html");
 });
 
 app.post('/post', function (req, res) {
