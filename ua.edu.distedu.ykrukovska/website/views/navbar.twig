@@ -1,0 +1,25 @@
+<!DOCTYPE HTML>
+<html lang="uk">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<script src=""></script>
+<nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">{{ domainName }}</a>
+        </div>
+        <ul class="navbar-nav mr-auto">
+            {% for item in menu %}
+                <li class="nav-item">
+                    <a class="nav-link" href= {{ item.href }}>{{ item.nameUkr }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li class="nav-item"><a class="nav-link" href="#">ENG</a></li>
+            <li class="nav-item"><a class="nav-link" href="#">UKR</a></li>
+        </ul>
+    </div>
+</nav>
+</html>
+

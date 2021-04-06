@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title> {{ websiteTitle }}</title>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" rel="stylesheet"/>
+</head>
+<body>
+{% include 'navbar.twig' %}
+
+<div class="d-flex flex-row m-3">
+    <div class="col-8">
+        {% block content %}{% endblock %}
+    </div>
+
+    <div class="col-4 myForm">
+        <form class="needs-validation">
+            <div class="flex-row">
+                <div class="col mb-3">
+                    <h5 class="h5 form-header text-uppercase" lang="uk">Форма заявки</h5>
+                </div>
+            </div>
+            <div class="flex-row">
+                <div class="col mb-3">
+                    <label for="firstName" lang="ukr">Ваше ім'я</label>
+                    <input type="text" class="form-control" id="firstName" placeholder="Введіть Ваше Ім'я" required>
+                </div>
+            </div>
+            <div class="flex-row">
+                <div class="col mb-3">
+                    <label for="secondName" lang="ukr">Ваше прізвище</label>
+                    <input type="text" class="form-control" id="secondName" placeholder="Введіть Ваше прізвище" required>
+                </div>
+            </div>
+            <div class="flex-row">
+                <div class="col mb-3">
+                    <label for="email" lang="ukr">Ваш e-mail</label>
+                    <input type="email" class="form-control" id="email" placeholder="Введіть Ваш e-mail" required>
+                </div>
+            </div>
+            <div class="flex-row">
+                <div class="col mb-3">
+                    <label for="phone" lang="ukr">Телефон (формат: +38(xxx)xxxxxxx )</label>
+                    <input type="tel" class="form-control" id="phone" placeholder="Введіть Ваш телефон" value=""
+                           pattern="^\+38\(\d{3}\)\d{7}$" required>
+                </div>
+            </div>
+            <div class="flex-row">
+                <div class="col mb-3">
+                    <label for="extraText" lang="ukr">Текст заявки</label>
+                    <textarea class="form-control" id="extraText" placeholder="" required></textarea>
+                </div>
+            </div>
+            <div class="flex-row">
+                <div class="col mb-3">
+                    <button type="submit" id="form-button" class="btn btn-success btn btn-block text-uppercase">
+                        <span lang="ukr">Подати заявку</span>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<script>
+    $('a[href="' + location.pathname + '"]').closest('.nav-item').addClass('active');
+    $(document).on('click', '.nav-link', function () {
+        $(".nav-item").find(".active").removeClass("active");
+    })
+</script>
+</body>
+</html>

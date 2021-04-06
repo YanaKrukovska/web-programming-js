@@ -1,0 +1,24 @@
+{
+  "websiteTitle": "Круті тренінги",
+  "domainName": "cooltraining.com.ua",
+  "img": "../static/images/code-photo.jpg",
+  "menuItems": [
+    {
+      "nameUkr": "Головна",
+      "nameEng": "Main",
+      "href": "/"
+    },
+    {
+      "nameUkr": "Тренінги",
+      "nameEng": "Trainings",
+      "href": "/trainings"
+    },
+    {
+      "nameUkr": "Про Нас",
+      "nameEng": "About Us",
+      "href": "/about"
+    }
+  ],
+  "menuColor": "",
+  "sendLetter": true
+}

@@ -1,0 +1,96 @@
+{% extends "client.twig" %}
+
+{% block content %}
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <div id="trainings"></div>
+    <style>
+        .expand {
+            color: blue;
+            cursor: pointer;
+        }
+    </style>
+    <script type="text/babel">
+
+        class Training extends React.Component {
+
+            notExpandedText = "Детальніше";
+            expandedText = "Згорнути";
+
+            constructor(item) {
+                super(item);
+                this.state = {expanded: false};
+
+                this.name = item.name;
+                this.fullDescription = item.description;
+                this.shortDescription = this.fullDescription.substr(0, 70) + '...';
+            }
+
+            onChangeExpand() {
+                this.setState({
+                    expanded: !this.state.expanded
+                });
+            }
+
+            render() {
+                return (
+                    <div>
+                        <h1>{this.name}</h1>
+                        {this.state.expanded ?
+                            <div>
+                                <div>{this.fullDescription}</div>
+                                <span className="expand" onClick={() => {
+                                    this.onChangeExpand()
+                                }}>
+                                    {this.expandedText}
+                                </span>
+                            </div>
+                            :
+                            <div>
+                                <div>{this.shortDescription}</div>
+                                <span className="expand" onClick={() => {
+                                    this.onChangeExpand()
+                                }}>
+                                    {this.notExpandedText}
+                                </span>
+                            </div>
+                        }
+                    </div>
+                );
+            }
+        }
+
+        function createList(data) {
+            const elements = data.listData;
+            if (elements.length === 0) {
+                return <div>Наразі тренінги недоступні</div>
+            }
+            return <div>
+                {elements.map(training =>
+                    <Training key={training._id} name={training.name} description={training.description}/>)}
+            </div>;
+        }
+
+        $(document).ready(function () {
+            $.ajax({
+                url: 'http://localhost:8888/training/all',
+                type: 'get',
+                dataType: 'json',
+                success: function (data) {
+                    ReactDOM.render(
+                        createList({listData: data}),
+                        document.getElementById('trainings')
+                    );
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    console.log('error', errorThrown);
+                }
+            });
+        });
+    </script>
+
+{% endblock %}
+{% block script %}
+{% endblock %}
