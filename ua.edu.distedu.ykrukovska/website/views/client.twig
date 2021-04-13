@@ -2,9 +2,10 @@
 <html lang="uk">
 <head>
     <meta charset="UTF-8">
-    <title> {{ websiteTitle }}</title>
+    <title> {{ config.websiteTitle }}</title>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" rel="stylesheet"
+    /
 </head>
 <body>
 {% include 'navbar.twig' %}
@@ -14,59 +15,119 @@
         {% block content %}{% endblock %}
     </div>
 
-    <div class="col-4 myForm">
-        <form class="needs-validation">
+    <div class="col-4" style="padding: 15px; border: 2px solid {{ config.navbarColor }}">
+        <form id="requestForm">
             <div class="flex-row">
                 <div class="col mb-3">
-                    <h5 class="h5 form-header text-uppercase" lang="uk">Форма заявки</h5>
+                    <h5 class="h5 text-uppercase text-center"><b>{{ resources.formName.ua }}</b></h5>
                 </div>
             </div>
             <div class="flex-row">
                 <div class="col mb-3">
-                    <label for="firstName" lang="ukr">Ваше ім'я</label>
-                    <input type="text" class="form-control" id="firstName" placeholder="Введіть Ваше Ім'я" required>
+                    <label for="name">Ваше ім'я</label>
+                    <input type="text" class="form-control" id="name" name="name" placeholder="Введіть Ваше Ім'я"
+                           required
+                           oninvalid="this.setCustomValidity('Поле з іменем не повинне бути пустим')"
+                           oninput="this.setCustomValidity('')">
                 </div>
             </div>
             <div class="flex-row">
                 <div class="col mb-3">
-                    <label for="secondName" lang="ukr">Ваше прізвище</label>
-                    <input type="text" class="form-control" id="secondName" placeholder="Введіть Ваше прізвище" required>
+                    <label for="surname">Ваше прізвище</label>
+                    <input type="text" class="form-control" id="surname" name="surname"
+                           placeholder="Введіть Ваше прізвище" required
+                           oninvalid="this.setCustomValidity('Поле з прізвищем не повинне бути пустим')"
+                           oninput="this.setCustomValidity('')">
                 </div>
             </div>
             <div class="flex-row">
                 <div class="col mb-3">
-                    <label for="email" lang="ukr">Ваш e-mail</label>
-                    <input type="email" class="form-control" id="email" placeholder="Введіть Ваш e-mail" required>
+                    <label for="mail">Ваш e-mail</label>
+                    <input type="email" class="form-control" id="mail" name="mail" placeholder="Введіть Ваш e-mail"
+                           required
+                           oninvalid="this.setCustomValidity('Введена пошта є некоректною')"
+                           oninput="this.setCustomValidity('')">
                 </div>
             </div>
             <div class="flex-row">
                 <div class="col mb-3">
-                    <label for="phone" lang="ukr">Телефон (формат: +38(xxx)xxxxxxx )</label>
-                    <input type="tel" class="form-control" id="phone" placeholder="Введіть Ваш телефон" value=""
-                           pattern="^\+38\(\d{3}\)\d{7}$" required>
+                    <label for="phone">Телефон (формат: +38(xxx)xxxxxxx )</label>
+                    <input type="tel" class="form-control" id="phone" name="phone" placeholder="Введіть Ваш телефон"
+                           value=""
+                            {# pattern="^\+38\(\d{3}\)\d{7}$" #}
+                           required
+                           oninvalid="this.setCustomValidity('Неправильний формат телефону')"
+                           oninput="this.setCustomValidity('')">
                 </div>
             </div>
             <div class="flex-row">
                 <div class="col mb-3">
-                    <label for="extraText" lang="ukr">Текст заявки</label>
-                    <textarea class="form-control" id="extraText" placeholder="" required></textarea>
+                    <label for="message">Текст заявки</label>
+                    <textarea class="form-control" id="message" name="message">
+                    </textarea>
                 </div>
             </div>
             <div class="flex-row">
                 <div class="col mb-3">
-                    <button type="submit" id="form-button" class="btn btn-success btn btn-block text-uppercase">
-                        <span lang="ukr">Подати заявку</span>
+                    <button id="form-button" class="btn btn-success btn-block text-uppercase btn-custom">
+                        <b>Подати заявку</b>
                     </button>
                 </div>
             </div>
         </form>
+        <div id="confirm" class="alert alert-success" role="alert" style="display: none; margin: 2%"></div>
     </div>
 </div>
 <script>
     $('a[href="' + location.pathname + '"]').closest('.nav-item').addClass('active');
     $(document).on('click', '.nav-link', function () {
         $(".nav-item").find(".active").removeClass("active");
-    })
+    });
+
+    function validate() {
+        let requestContent = document.getElementById('message').value;
+        if (/^\s*$/g.test(requestContent) || requestContent.indexOf('\n') !== -1) {
+            alert('Текст заявки не може бути пустим');
+        }
+    }
+
+    let formButton = document.getElementById("form-button");
+    formButton.addEventListener("click", function (e) {
+        let requestContent = document.getElementById('message').value;
+        if (/^\s*$/g.test(requestContent) || requestContent.indexOf('\n') !== -1) {
+            alert('Текст заявки не може бути пустим');
+        } else {
+
+            e.preventDefault();
+            let data = JSON.stringify({
+                surname: document.getElementById("surname").value,
+                name: document.getElementById("name").value,
+                mail: document.getElementById("mail").value,
+                phone: document.getElementById("phone").value,
+                message: document.getElementById("message").value
+            });
+            let request = new XMLHttpRequest();
+            request.open("POST", "/request/add", true);
+            request.setRequestHeader("Content-Type", "application/json");
+            request.addEventListener("load", function () {
+                let isConfirmationOn = JSON.parse(request.response);
+                let confirmationMessage = document.getElementById('confirm');
+                confirmationMessage.style.display = 'block';
+
+                if (!isConfirmationOn) {
+                    confirmationMessage.innerText = 'Вашу заявку прийнято!';
+                } else {
+                    confirmationMessage.innerText = 'Вам було надіслано лист';
+                }
+            });
+            request.send(data);
+        }
+        $('input').each(function () {
+            $(this).val("");
+        });
+    });
+
+
 </script>
 </body>
 </html>

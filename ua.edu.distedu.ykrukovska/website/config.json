@@ -19,6 +19,11 @@
       "href": "/about"
     }
   ],
-  "menuColor": "",
-  "sendLetter": true
+  "navbarColor": "#1d775c",
+  "navbarTextColor": "#ffffff",
+  "letterVerification": false,
+  "formName": {
+    "ua": "форма заявки",
+    "en": "request form"
+  }
 }

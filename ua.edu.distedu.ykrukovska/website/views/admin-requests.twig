@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title> {{ config.websiteTitle }}</title>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" rel="stylesheet"/>
+    <style>
+        #verification-settings {
+            margin: 25px;
+        }
+    </style>
+</head>
+<body>
+{% include 'navbar.twig' %}
+
+<div id="verification-settings">
+    <form action="/request/settings" method="post">
+        {% if config.letterVerification %}
+            <button class="btn btn-danger">Відмінити підтвердження листом</button>
+        {% else %}
+            <button class="btn btn-success">Активізувати підтвердження листом</button>
+        {% endif %}
+    </form>
+</div>
+
+<table class="table">
+    <thead class="thead-light">
+    <tr>
+        <th scope="col">Surname</th>
+        <th scope="col">Name</th>
+        <th scope="col">Mail</th>
+        <th scope="col">Phone</th>
+        <th scope="col">Message</th>
+        <th scope="col">Accepted</th>
+        <th scope="col"></th>
+        <th scope="col"></th>
+    </tr>
+    </thead>
+    <tbody>
+
+    {% for request in requests %}
+        <tr>
+            <td>{{ request.surname }}</td>
+            <td>{{ request.name }}</td>
+            <td>{{ request.mail }}</td>
+            <td>{{ request.phone }}</td>
+            <td>{{ request.message }}</td>
+            <td>
+                <form action="/request/delete" method="post">
+                    <label for="requestId" hidden></label>
+                    <input type="text" class="form-control" name="requestId" id="requestId" value="{{ request._id }}"
+                           hidden>
+                    <button id="remove-request-button" class="btn btn-danger" type="submit">Remove</button>
+                </form>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+</body>
+</html>

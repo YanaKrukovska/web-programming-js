@@ -1,20 +1,42 @@
 <!DOCTYPE HTML>
 <html lang="uk">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-<script src=""></script>
-<nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<style>
+    .navbar-custom, .dropdown-toggle {
+        background-color: {{ config.navbarColor }};
+    }
+
+    .navbar-custom .navbar-brand,
+    .navbar-custom .nav-link {
+        color: {{ config.navbarTextColor }};
+    }
+</style>
+<nav class="navbar navbar-expand-sm navbar-custom">
     <div class="container-fluid">
         <div class="navbar-header">
-            <a class="navbar-brand" href="#">{{ domainName }}</a>
+            <a class="navbar-brand" href="#">{{ config.domainName }}</a>
         </div>
         <ul class="navbar-nav mr-auto">
-            {% for item in menu %}
+            {% for item in config.menuItems %}
                 <li class="nav-item">
                     <a class="nav-link" href= {{ item.href }}>{{ item.nameUkr }}</a>
                 </li>
             {% endfor %}
         </ul>
+
+        <div class="dropdown">
+            <button type="button" class="btn dropdown-toggle" data-toggle="dropdown"
+                    style="color: {{ config.navbarTextColor }}"> Admin
+            </button>
+            <div class="dropdown-menu">
+                <a class="dropdown-item" href="/admin/request">Requests</a>
+                <a class="dropdown-item" href="/admin/training">Add training</a>
+            </div>
+        </div>
+
         <ul class="nav navbar-nav navbar-right">
             <li class="nav-item"><a class="nav-link" href="#">ENG</a></li>
             <li class="nav-item"><a class="nav-link" href="#">UKR</a></li>
