@@ -1,12 +1,12 @@
 const credentials = require('./mail-credentials');
+const uaLocale = require('./locales/ua.json');
+const enLocale = require('./locales/en.json');
+const config = require('./config.json')
 
 let bodyParser = require('body-parser');
 let express = require('express');
 let app = express();
-const config = require('./config.json')
-const resources = require('./resources.json')
 let nodemailer = require('nodemailer');
-
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 app.use('/public', express.static('public'));
@@ -34,6 +34,18 @@ let transporter = nodemailer.createTransport({
     }
 });
 
+function getLocale(queryLang){
+    let lang;
+    if (queryLang === 'en') {
+        lang = enLocale;
+        lang.menu = config.menuItemsEn;
+    } else {
+        lang = uaLocale;
+        lang.menu = config.menuItemsUa;
+    }
+    return lang;
+}
+
 function getAllTrainings(callback) {
     trainingsCollection.find({}).toArray(function (err, result) {
         callback(result);
@@ -53,35 +65,53 @@ app.get('/training/all', function (req, res) {
 });
 
 app.get('/', function (req, res) {
+    let lang = getLocale(req.query.lang);
+
     res.render(__dirname + "\\views\\main.twig", {
         config: config,
-        resources: config
+        lang: lang
     });
 });
 
 
 app.get("/trainings", function (req, res) {
+    let lang = getLocale(req.query.lang);
+
     getAllTrainings(function (allTrainings) {
         res.render(__dirname + "\\views\\trainings.twig", {
             config: config,
             trainingsData: allTrainings,
-
+            lang: lang
         });
     });
 });
 
 app.get("/about", function (req, res) {
+    let lang = getLocale(req.query.lang);
     res.render(__dirname + "\\views\\about.twig", {
-        config: config
+        config: config,
+        lang: lang
     });
 });
 
 app.get("/admin/request", function (req, res) {
+    let lang = getLocale(req.query.lang);
+
     getAllRequests(function (requestsData) {
         res.render(__dirname + "\\views\\admin-requests.twig", {
             config: config,
-            requests: requestsData
+            requests: requestsData,
+            lang: lang
         });
+    });
+});
+
+app.get("/admin/training", function (req, res) {
+    let lang = getLocale(req.query.lang);
+
+    res.render(__dirname + "\\views\\admin-training.twig", {
+        config: config,
+        lang: lang
     });
 });
 
@@ -118,19 +148,14 @@ app.post('/request/add', function (req, res) {
 
 app.post('/request/delete', function (req, res) {
     requestsCollection.deleteOne({_id: new mongo.ObjectID(req.body.requestId)});
-    res.redirect('/admin/request');
+    res.redirect('/admin/request?lang=' + req.query.lang);
 });
 
 app.post('/request/settings', function (req, res) {
     config.letterVerification = !config.letterVerification;
-    res.redirect('/admin/request');
+    res.redirect('/admin/request?lang=' + req.query.lang);
 });
 
-app.get("/admin/training", function (req, res) {
-    res.render(__dirname + "\\views\\admin-training.twig", {
-        config: config
-    });
-});
 
 app.post('/training/add', function (req, res) {
     trainingsCollection.insertOne(
@@ -139,7 +164,7 @@ app.post('/training/add', function (req, res) {
             description: req.body.description
         }
     );
-    res.redirect('/trainings');
+    res.redirect('/trainings?lang=' + req.query.lang);
 });
 
 app.listen(8888);

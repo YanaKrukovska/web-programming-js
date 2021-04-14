@@ -2,12 +2,11 @@
 
 {% block content %}
     <div class="d-flex flex-column">
-        <img src= "../public/static/images/code-photo.jpg" alt="Main page image"/>
+        <img src="../public/static/images/code-photo.jpg" alt="Main page image"/>
         <div class="d-flex flex-column">
-            <h1>Насолоджуйтесь послугами нашого тренінгового центру</h1>
-            <p>Хто не хоче насолоджуватися - Вам же гірше. Ми Вас знайдемо і доведемо і Вам особисто, і Вашим
-                потенійним
-                роботодавцям, що ви нічого не знаєте.</p>
+            <h1 style="margin-top: 40px; margin-bottom: 20px; color: {{ config.navbarColor }}">
+                {{ lang.mainHeader }}</h1>
+            <p>{{ lang.mainText }}</p>
         </div>
     </div>
 {% endblock %}

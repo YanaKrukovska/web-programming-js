@@ -2,28 +2,35 @@
   "websiteTitle": "Круті тренінги",
   "domainName": "cooltraining.com.ua",
   "img": "../static/images/code-photo.jpg",
-  "menuItems": [
+  "menuItemsUa": [
     {
-      "nameUkr": "Головна",
-      "nameEng": "Main",
-      "href": "/"
+      "name": "Головна",
+      "href": "/?lang=ua"
     },
     {
-      "nameUkr": "Тренінги",
-      "nameEng": "Trainings",
-      "href": "/trainings"
+      "name": "Тренінги",
+      "href": "/trainings?lang=ua"
     },
     {
-      "nameUkr": "Про Нас",
-      "nameEng": "About Us",
-      "href": "/about"
+      "name": "Про нас",
+      "href": "/about?lang=ua"
+    }
+  ],
+  "menuItemsEn": [
+    {
+      "name": "Main",
+      "href": "/?lang=en"
+    },
+    {
+      "name": "Trainings",
+      "href": "/trainings?lang=en"
+    },
+    {
+      "name": "About Us",
+      "href": "/about?lang=en"
     }
   ],
   "navbarColor": "#1d775c",
   "navbarTextColor": "#ffffff",
-  "letterVerification": false,
-  "formName": {
-    "ua": "форма заявки",
-    "en": "request form"
-  }
+  "letterVerification": false
 }

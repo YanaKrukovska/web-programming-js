@@ -10,7 +10,6 @@
             color: blue;
             cursor: pointer;
         }
-
         h1 {
             color: {{ config.navbarColor }};
             margin-top: 40px;
@@ -20,8 +19,8 @@
 
         class Training extends React.Component {
 
-            notExpandedText = "Детальніше";
-            expandedText = "Згорнути";
+            notExpandedText = "{{ lang.detailed }}";
+            expandedText = "{{ lang.lessDetailed }}";
 
             constructor(item) {
                 super(item);

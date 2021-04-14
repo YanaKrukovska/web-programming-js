@@ -1,11 +1,10 @@
 <!DOCTYPE html>
-<html lang="uk">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <title> {{ config.websiteTitle }}</title>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" rel="stylesheet"
-    /
 </head>
 <body>
 {% include 'navbar.twig' %}
@@ -14,63 +13,62 @@
     <div class="col-8">
         {% block content %}{% endblock %}
     </div>
-
     <div class="col-4" style="padding: 15px; border: 2px solid {{ config.navbarColor }}">
         <form id="requestForm">
             <div class="flex-row">
                 <div class="col mb-3">
-                    <h5 class="h5 text-uppercase text-center"><b>{{ resources.formName.ua }}</b></h5>
+                    <h5 class="h5 text-uppercase text-center"><b>{{ lang.formName }}</b></h5>
                 </div>
             </div>
             <div class="flex-row">
                 <div class="col mb-3">
-                    <label for="name">Ваше ім'я</label>
-                    <input type="text" class="form-control" id="name" name="name" placeholder="Введіть Ваше Ім'я"
+                    <label for="name">{{ lang.formNameField }}</label>
+                    <input type="text" class="form-control" id="name" name="name"
+                           placeholder="{{ lang.formNameFieldTip }}"
                            required
-                           oninvalid="this.setCustomValidity('Поле з іменем не повинне бути пустим')"
+                           oninvalid="this.setCustomValidity('{{ lang.formNameFieldError }}')"
                            oninput="this.setCustomValidity('')">
                 </div>
             </div>
             <div class="flex-row">
                 <div class="col mb-3">
-                    <label for="surname">Ваше прізвище</label>
+                    <label for="surname">{{ lang.formSurnameField }}</label>
                     <input type="text" class="form-control" id="surname" name="surname"
-                           placeholder="Введіть Ваше прізвище" required
-                           oninvalid="this.setCustomValidity('Поле з прізвищем не повинне бути пустим')"
+                           placeholder="{{ lang.formSurnameFieldTip }}" required
+                           oninvalid="this.setCustomValidity('{{ lang.formSurnameFieldError }}')"
                            oninput="this.setCustomValidity('')">
                 </div>
             </div>
             <div class="flex-row">
                 <div class="col mb-3">
-                    <label for="mail">Ваш e-mail</label>
-                    <input type="email" class="form-control" id="mail" name="mail" placeholder="Введіть Ваш e-mail"
+                    <label for="mail">{{ lang.formEmailField }}</label>
+                    <input type="email" class="form-control" id="mail" name="mail"
+                           placeholder="{{ lang.formEmailFieldTip }}"
                            required
-                           oninvalid="this.setCustomValidity('Введена пошта є некоректною')"
+                           oninvalid="this.setCustomValidity('{{ lang.formEmailFieldError }}')"
                            oninput="this.setCustomValidity('')">
                 </div>
             </div>
             <div class="flex-row">
                 <div class="col mb-3">
-                    <label for="phone">Телефон (формат: +38(xxx)xxxxxxx )</label>
-                    <input type="tel" class="form-control" id="phone" name="phone" placeholder="Введіть Ваш телефон"
-                           value=""
-                            {# pattern="^\+38\(\d{3}\)\d{7}$" #}
-                           required
-                           oninvalid="this.setCustomValidity('Неправильний формат телефону')"
+                    <label for="phone">{{ lang.formPhoneField }}</label>
+                    <input type="tel" class="form-control" id="phone" name="phone"
+                           placeholder="{{ lang.formPhoneFieldTip }}"
+                           value="" pattern="^\+38\(\d{3}\)\d{7}$" required
+                           oninvalid="this.setCustomValidity('{{ lang.formPhoneFieldError }}')"
                            oninput="this.setCustomValidity('')">
                 </div>
             </div>
             <div class="flex-row">
                 <div class="col mb-3">
-                    <label for="message">Текст заявки</label>
-                    <textarea class="form-control" id="message" name="message">
-                    </textarea>
+                    <label for="message">{{ lang.formTextField }}</label>
+                    <textarea class="form-control" id="message" name="message"></textarea>
                 </div>
             </div>
             <div class="flex-row">
                 <div class="col mb-3">
-                    <button id="form-button" class="btn btn-success btn-block text-uppercase btn-custom">
-                        <b>Подати заявку</b>
+                    <button type="submit" id="form-button" class="btn btn-success btn-block text-uppercase btn-custom">
+                        <b>{{ lang.sendRequest }}</b>
                     </button>
                 </div>
             </div>
@@ -79,25 +77,21 @@
     </div>
 </div>
 <script>
-    $('a[href="' + location.pathname + '"]').closest('.nav-item').addClass('active');
-    $(document).on('click', '.nav-link', function () {
-        $(".nav-item").find(".active").removeClass("active");
-    });
+    let requestForm = document.getElementById("requestForm");
 
-    function validate() {
+    function validateMessage(){
         let requestContent = document.getElementById('message').value;
-        if (/^\s*$/g.test(requestContent) || requestContent.indexOf('\n') !== -1) {
-            alert('Текст заявки не може бути пустим');
+        if (requestContent.length === 0) {
+            alert('{{ lang.formTextFieldError }}');
+            return false;
         }
+        return true;
     }
 
     let formButton = document.getElementById("form-button");
     formButton.addEventListener("click", function (e) {
-        let requestContent = document.getElementById('message').value;
-        if (/^\s*$/g.test(requestContent) || requestContent.indexOf('\n') !== -1) {
-            alert('Текст заявки не може бути пустим');
-        } else {
 
+        if (validateMessage() && requestForm.checkValidity()) {
             e.preventDefault();
             let data = JSON.stringify({
                 surname: document.getElementById("surname").value,
@@ -115,19 +109,19 @@
                 confirmationMessage.style.display = 'block';
 
                 if (!isConfirmationOn) {
-                    confirmationMessage.innerText = 'Вашу заявку прийнято!';
+                    confirmationMessage.innerText = '{{ lang.requestAccepted }}';
                 } else {
-                    confirmationMessage.innerText = 'Вам було надіслано лист';
+                    confirmationMessage.innerText = '{{ lang.sentMail }}';
                 }
             });
             request.send(data);
+            $('input').each(function () {
+                $(this).val("");
+            });
+            $('#message').val("");
         }
-        $('input').each(function () {
-            $(this).val("");
-        });
+
     });
-
-
 </script>
 </body>
 </html>
